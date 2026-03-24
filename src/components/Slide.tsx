@@ -1,25 +1,25 @@
 import React from 'react';
 import { SlideData } from '../constants';
 import { motion } from 'motion/react';
-import { Logo } from './Logo';
 
 interface SlideProps {
   slide: SlideData;
   isActive: boolean;
+  disableAnimation?: boolean;
 }
 
-export const Slide: React.FC<SlideProps> = ({ slide, isActive }) => {
+export const Slide: React.FC<SlideProps> = ({ slide, isActive, disableAnimation = false }) => {
   if (!isActive) return null;
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 20 }}
+      data-slide-content
+      initial={disableAnimation ? false : { opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -20 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      exit={disableAnimation ? undefined : { opacity: 0, x: -20 }}
+      transition={disableAnimation ? { duration: 0 } : { duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className="w-full h-full flex flex-col justify-center px-8 md:px-24 relative overflow-hidden"
     >
-      {/* Background Number */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[40vw] font-black text-white/[0.02] pointer-events-none select-none font-mono">
         {slide.number}
       </div>
@@ -38,7 +38,7 @@ export const Slide: React.FC<SlideProps> = ({ slide, isActive }) => {
 
         {slide.type === 'capa' && (
           <div className="mb-12 opacity-80">
-            <Logo className="scale-150 origin-left" />
+            {/* Removido o logo da capa */}
           </div>
         )}
 
@@ -53,7 +53,7 @@ export const Slide: React.FC<SlideProps> = ({ slide, isActive }) => {
             <p className="text-lg md:text-xl text-neutral-300 leading-relaxed border-l border-neutral-800 pl-8">
               {slide.content}
             </p>
-            
+
             {slide.example && (
               <div className="mt-8 p-6 bg-neutral-900/30 border border-neutral-900">
                 <span className="font-mono text-[10px] tracking-widest text-builder-green uppercase block mb-2">CASE STUDY</span>
