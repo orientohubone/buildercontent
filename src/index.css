@@ -1,0 +1,43 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --color-builder-green: #58B573;
+  --color-builder-black: #050505;
+}
+
+@layer base {
+  body {
+    @apply bg-builder-black text-white antialiased overflow-hidden;
+  }
+}
+
+.tracking-ultra {
+  letter-spacing: 0.5em;
+}
+
+.leading-presentation {
+  line-height: 0.85;
+}
+
+/* Slide transition animations */
+.slide-enter {
+  opacity: 0;
+  transform: translateX(20px);
+}
+.slide-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 500ms, transform 500ms;
+}
+.slide-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+.slide-exit-active {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 500ms, transform 500ms;
+}
